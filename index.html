@@ -7,11 +7,13 @@
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <textarea id="textInput" rows="10" cols="50"></textarea>
+    <div id="textInput" contenteditable="true">Insert text here...</div>
     <div id="controls">
         <button id="startButton">Start Reading</button>
         <button id="pauseButton">Pause Reading</button>
         <input type="range" id="speedControl" min="100" max="1000" value="500">
+        <label for="chunkSize">Chunk Size:</label>
+        <input type="range" id="chunkSize" min="1" max="5" value="3">
     </div>
     <script src="script.js"></script>
 </body>
