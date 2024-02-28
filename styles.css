@@ -8,7 +8,7 @@ body, html {
 }
 
 textarea {
-    height: 25vh; /* Adjust the height to 25% of the viewport height */
+    height: 15vh; /* Adjust the height to 25% of the viewport height */
     width: 80%; /* Make it span the full width of its container */
     resize: none; /* Prevent resizing */
 }
