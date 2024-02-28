@@ -1,22 +1,23 @@
-
 body, html {
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    margin: 0;
+    padding: 0;
     height: 100vh;
+    display: flex;
+    flex-direction: column;
     font-family: Arial, sans-serif;
 }
 
-#app {
-    text-align: center;
+textarea {
+    flex: 1; /* Take the top half of the screen */
+    resize: none; /* Prevent resizing */
 }
 
-#wordDisplay {
-    margin: 20px;
-    font-size: 32px;
-    height: 50px;
+#controls {
+    display: flex;
+    justify-content: center;
+    padding: 10px;
 }
 
-input, textarea, button {
-    margin: 10px 0;
+button {
+    margin: 0 10px;
 }
