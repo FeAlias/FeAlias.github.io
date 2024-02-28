@@ -8,29 +8,32 @@ function startReading() {
     if (isReading) return;
     isReading = true;
 
-    const text = document.getElementById('textInput').value;
-    const words = text.split(/\s+/);
+    const textInput = document.getElementById('textInput');
+    const words = textInput.innerText.split(/\s+/);
+    const chunkSize = parseInt(document.getElementById('chunkSize').value);
     let index = 0;
 
-    function highlightChunk() {
+    function updateReading() {
         if (!isReading || index >= words.length) {
             pauseReading();
             return;
         }
 
-        // Clear previous highlight
-        document.getElementById('textInput').value = text;
-        let chunk = words.slice(index, index + 3).join(' ');
-        let beforeChunk = words.slice(0, index).join(' ');
-        let afterChunk = words.slice(index + 3).join(' ');
+        textInput.innerHTML = ''; // Clear current text
+        for (let i = 0; i < words.length; i++) {
+            const span = document.createElement('span');
+            if (i >= index && i < index + chunkSize) {
+                span.style.fontSize = 'larger';
+            }
+            span.textContent = words[i] + ' ';
+            textInput.appendChild(span);
+        }
 
-        document.getElementById('textInput').value = beforeChunk + ' [ ' + chunk + ' ] ' + afterChunk;
-        index += 3;
-
-        timer = setTimeout(highlightChunk, 1000 - document.getElementById('speedControl').value);
+        index += chunkSize;
+        timer = setTimeout(updateReading, 1000 - document.getElementById('speedControl').value);
     }
 
-    highlightChunk();
+    updateReading();
 }
 
 function pauseReading() {
