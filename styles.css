@@ -1,1 +1,22 @@
 
+body, html {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    font-family: Arial, sans-serif;
+}
+
+#app {
+    text-align: center;
+}
+
+#wordDisplay {
+    margin: 20px;
+    font-size: 32px;
+    height: 50px;
+}
+
+input, textarea, button {
+    margin: 10px 0;
+}
