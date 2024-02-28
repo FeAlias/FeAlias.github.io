@@ -1,27 +1,39 @@
+document.getElementById('startButton').addEventListener('click', startReading);
+document.getElementById('pauseButton').addEventListener('click', pauseReading);
 
-document.getElementById('startButton').addEventListener('click', function() {
+let isReading = false;
+let timer;
+
+function startReading() {
+    if (isReading) return;
+    isReading = true;
+
     const text = document.getElementById('textInput').value;
     const words = text.split(/\s+/);
-    const display = document.getElementById('wordDisplay');
-    const speedControl = document.getElementById('speedControl');
     let index = 0;
 
-    function displayNextWord() {
-        if (index < words.length) {
-            display.innerText = words[index++];
-            setTimeout(displayNextWord, 1000 - speedControl.value);
+    function highlightChunk() {
+        if (!isReading || index >= words.length) {
+            pauseReading();
+            return;
         }
+
+        // Clear previous highlight
+        document.getElementById('textInput').value = text;
+        let chunk = words.slice(index, index + 3).join(' ');
+        let beforeChunk = words.slice(0, index).join(' ');
+        let afterChunk = words.slice(index + 3).join(' ');
+
+        document.getElementById('textInput').value = beforeChunk + ' [ ' + chunk + ' ] ' + afterChunk;
+        index += 3;
+
+        timer = setTimeout(highlightChunk, 1000 - document.getElementById('speedControl').value);
     }
 
-    displayNextWord();
-});
+    highlightChunk();
+}
 
-if ('serviceWorker' in navigator) {
-  window.addEventListener('load', () => {
-    navigator.serviceWorker.register('/service-worker.js').then(registration => {
-      console.log('ServiceWorker registration successful with scope: ', registration.scope);
-    }, err => {
-      console.log('ServiceWorker registration failed: ', err);
-    });
-  });
+function pauseReading() {
+    isReading = false;
+    clearTimeout(timer);
 }
